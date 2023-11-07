@@ -1,0 +1,274 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap");
+
+/* Restablecer el margen, relleno y modelo de caja */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Jost", sans-serif;
+}
+
+body {
+    background-color: #333;
+}
+
+.gallery {
+    height: 70vh;
+    width: 85%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 133px);
+    grid-auto-rows: 200px;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.gallery_item {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    grid-column: span 2; /* 266px + 17px = 283px */
+    height: 283px;
+    position: relative;
+    transition: 0.5s ease;
+}
+
+.gallery_item:first-of-type {
+    grid-column: 2 / span 2;
+}
+
+.gallery_item:hover {
+    transform: scale(1.04);
+    filter: brightness(1.10);
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.title {
+    color: #dacdb4;
+    text-align: center;
+    padding: 2.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-decoration: underline;
+    text-decoration-color: #cfae6f;
+    font-size: 2.4rem;
+    font-family: "Jost", sans-serif;
+}
+
+/* Estilos para el overlay y botón "About More" */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.305);
+    opacity: 0; /* Inicialmente invisible */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.person-name {
+    font-family: "Jost", sans-serif;
+    color: #e7dac2;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.about-button {
+    font-family: "Jost", sans-serif;
+    background-color: #e7dac2;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.about-button {
+    font-family: "Jost", sans-serif;
+    background-color: #e7dac2;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Animación al pasar el ratón sobre el elemento .gallery_item */
+.gallery_item:hover .overlay {
+    opacity: 1; /* Mostrar el overlay */
+}
+
+.gallery_item:hover .about-button {
+    background-color: #333;
+    color: #cfae6f;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none; /* Inicialmente oculto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    overflow: auto;
+    transition: transform 0.5s ease;
+    transform: translateY(0); /* La posición inicial, el modal estará visible */
+}
+
+.modal-content {
+    background-color: #cfad6fab;
+    border: 1px solid #ebb550;
+    border-radius: 25px;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    height: 90%;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 35px;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s ease-in-out;
+}
+
+.close:hover {
+    transform: scale(1.2);
+    color: #e7dac2;
+}
+
+/* Animacion del modal para su apertura y cierre */
+.modal-animation {
+    animation-name: slide-up;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(100%); /* Posición inicial de la animación */
+    }
+    to {
+        transform: translateY(0); /* Posición final de la animación */
+    }
+}
+
+.modal.closing {
+    /* Cuando se aplica la clase "closing", el modal se desplazará fuera de la vista */
+    transform: translateY(100%); /* Mover el modal fuera de la pantalla hacia abajo */
+}
+
+/* Imagen dentro del modal */
+.modal-image {
+    width: 50%; /* Ajusta el ancho de la imagen según tus preferencias */
+    height: auto; /* Para mantener la proporción original */
+    float: left; /* Coloca la imagen a la izquierda del contenido */
+    margin-right: 20px; /* Agrega un margen a la derecha para separar la imagen del contenido */
+    border-radius: 25px;
+    transition: 0.5s ease;
+}
+
+/* Animación de desplazamiento */
+.slide-left-to-right {
+    animation-name: slide-left-right;
+    animation-duration: 1.8s;
+    animation-timing-function: ease;
+}
+
+@keyframes slide-left-right {
+    from {
+        transform: translateX(-60%); /* Posición inicial, a la izquierda de la pantalla */
+    }
+    to {
+        transform: translateX(0); /* Posición final, en el centro de la pantalla */
+    }
+}
+
+/* Informacion dentro del modal */
+.modal-title {
+    font-family: "Jost", sans-serif;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.modal-info {
+    font-family: "Jost", sans-serif;
+    font-size: 1.2rem;
+    color: #000000;
+    
+}
+
+/* Media Query para ajuste de pantallas*/
+@media screen and (min-width: 270px) and (max-width: 504px) {
+    .gallery_item:first-of-type {
+        grid-column: 1 / span 2;
+    }
+
+    .gallery {
+        grid-auto-rows: 283px;
+    }
+}
+
+@media screen and (min-width: 505px) and (max-width: 685px) {
+    .gallery_item:nth-of-type(odd) {
+        grid-column: 1 / span 2;
+    }
+}
+
+@media screen and (min-width: 686px) and (max-width: 862px) {
+    .gallery_item:nth-of-type(3n + 1) {
+        grid-column: 2 / span 2;
+    }
+}
+
+@media screen and (min-width: 863px) and (max-width: 1038px) {
+    .gallery_item:nth-of-type(4n + 1) {
+        grid-column: 2 / span 2;
+    }
+}
+
+@media screen and (min-width: 1039px) and (max-width: 1215px) {
+    .gallery_item:nth-of-type(5n + 1) {
+        grid-column: 2 / span 2;
+    }
+}
+
+@media screen and (min-width: 1216px) and (max-width: 1391px) {
+    .gallery_item:nth-of-type(6n + 1) {
+        grid-column: 2 / span 2;
+    }
+}
+
+@media screen and (min-width: 1392px) {
+    .gallery_item:nth-of-type(7n + 1) {
+        grid-column: 2 / span 2;
+    }
+}
